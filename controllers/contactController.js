@@ -18,11 +18,10 @@ exports.create = (req, res) => {
 
 exports.store = async (req, res) => {
     try {
-        await Contact.create(req.body);
+        const { nama, email, noHP } = req.body;
+        await Contact.create({ nama, email, noHP });
 
-        const contactBaru = new Contact({ nama, email, noHP });
-        await contactBaru.save();
-
+        req.flash('msg', 'Kontak berhasil ditambahkan!');
         res.redirect("/contact");
         // res.status(201).json({message: "Produk berhasil ditambahkan"}); 
     } catch (err) {
@@ -61,14 +60,15 @@ exports.edit = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nama, harga, stok } = req.body;
+        const { nama, email, noHP } = req.body;
 
-        const contact = await Contact.findByIdAndUpdate(id, { nama, harga, stok }, { new: true });
+        const contact = await Contact.findByIdAndUpdate(id, { nama, email, noHP }, { new: true });
 
         if (!contact) {
             return res.status(404).json({ error: "contact tidak ditemukan" });
         }
 
+        req.flash('msg', 'Kontak berhasil diubah!');
         res.redirect("/contact");
         // res.status(201).json({ message: "Produk berhasil diperbaharui" }); 
     } catch (err) {
@@ -86,6 +86,7 @@ exports.destroy = async (req, res) => {
             return res.status(404).json({ error: "Produk tidak ditemukan" });
         }
 
+        req.flash('msg', 'Kontak berhasil Hapus!');
         res.redirect("/contact");
         // res.status(201).json({ message: "Produk berhasil dihapus" }); 
     } catch (err) {

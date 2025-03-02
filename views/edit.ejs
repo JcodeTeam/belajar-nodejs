@@ -5,6 +5,17 @@
                 <div class="card-header bg-primary text-white text-center">
                     <h3>Edit Contact</h3>
                 </div>
+                            <% if (typeof errors !='undefined' ) { %>
+                                <div class="alert alert-danger" role="alert">
+                                    <ul>
+                                        <% errors.forEach(error=> { %>
+                                            <li>
+                                                <%= error.msg %>
+                                            </li>
+                                            <% }) %>
+                                    </ul>
+                                </div>
+                                <% } %>
                 <div class="card-body">
                     <form action="/contact/<%= contact._id %>?_method=PUT" method="POST">
                         <div class="mb-3">
