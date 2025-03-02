@@ -1,0 +1,33 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Tambah Produk</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/contact" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Nama contact</label>
+                            <input type="text" name="nama" class="form-control" placeholder="Masukkan nama contact"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Masukkan email"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">No. HP</label>
+                            <input type="number" name="noHP" class="form-control" placeholder="Masukkan NO. HP" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                            <a href="/contact" class="btn btn-secondary mt-2">Kembali</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

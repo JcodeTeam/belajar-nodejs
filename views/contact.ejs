@@ -1,0 +1,65 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mb-5">Daftar Contact</h1>
+
+            <a href="/contact/tambah" class="btn btn-primary">Tambah Contact</a>
+
+            <% if (msg.length !==0) { %>
+                <div class="alert alert-success mt-3" role="alert">
+                    <%= msg %>
+                </div>
+                <% } %>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">No Telp</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (contact.length===0) { %>
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="alert alert-danger" role="alert">
+                                            Data Contact belum ada
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% } %>
+                                    <% contact.forEach(con=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= con.nama %>
+                                            </td>
+
+                                            <td>
+                                                <%= con.email%>
+                                            </td>
+
+                                            <td>
+                                                <%= con.noHP %>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="/contact/<%= con._id %>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
+                                                <a href="/contact/edit/<%= con._id %>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>
+                                                    Edit</a>
+                                            
+                                                <form action="/contact/<%= con._id %>?_method=DELETE" method="POST" class="d-inline">
+                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('Yakin ingin menghapus contact ini?')">
+                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            </tr>
+                                        </tr>
+                                        <% }) %>
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+</div>
