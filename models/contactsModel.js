@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // Definisikan schema contact
 const contactSchema = new mongoose.Schema({
     nama: { type: String, required: true },
-    email: { type: String, required: false },
+    email: { type: String, required: true },
     noHP: { type: String, required: true },
 });
 
