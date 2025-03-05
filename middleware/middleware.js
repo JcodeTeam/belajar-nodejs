@@ -66,7 +66,10 @@ const validateUpdate = [
             if (duplikat) {
                 throw new Error("Nama Contact sudah digunakan");
             }
-        }
+        } 
+        // else if (value === contactLama.nama && req.body.email === contactLama.email && req.body.noHP === contactLama.noHP) {
+        //     req.flash('msg', 'Nama kontak sama dengan sebelumnya');
+        // }
         return true;
     }),
     check('email', 'Email tidak valid').isEmail(),
@@ -76,6 +79,7 @@ const validateUpdate = [
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // Ambil kembali data kontak asli dari database
+            //mengembalikan nilai yang diubah ke nilai asal
             const contact = await Contact.findById(req.params.id);
             return res.render('edit', {
                 layout: 'layouts/app',

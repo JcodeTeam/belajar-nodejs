@@ -1,0 +1,4 @@
+req.params dari href="/contact/edit/<%= con._id %>" ngambil dari link
+
+req.body kalo kita mengirimnya melalui input 
+<input type="hidden" name="id" class="form-control" value="<%= con._id %>" >

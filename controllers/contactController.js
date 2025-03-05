@@ -62,11 +62,7 @@ exports.update = async (req, res) => {
         const { id } = req.params;
         const { nama, email, noHP } = req.body;
 
-        const contact = await Contact.findByIdAndUpdate(id, { nama, email, noHP }, { new: true });
-
-        if (!contact) {
-            return res.status(404).json({ error: "contact tidak ditemukan" });
-        }
+        await Contact.findByIdAndUpdate(id, { nama, email, noHP }, { new: true });
 
         req.flash('msg', 'Kontak berhasil diubah!');
         res.redirect("/contact");
