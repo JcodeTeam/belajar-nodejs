@@ -12,7 +12,7 @@ exports.index = async (req, res) => {
     }
 };
 
-exports.create = (req, res) => {
+exports.create = (res) => {
     res.render("tambah", { layout: 'layouts/app.ejs', title: 'Tambah Kontak' });
 };
 
