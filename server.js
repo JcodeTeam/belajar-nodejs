@@ -3,6 +3,7 @@ const express = require('express');
 const contactRoutes = require('./routes/contactRoutes');
 const connectDB = require("./config/db");
 const Middleware = require('./middleware/middleware');
+const Swal = require('sweetalert2')
 
 const app = express();
 const port = process.env.PORT || 5000;
