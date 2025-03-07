@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Definisikan schema contact
 const contactSchema = new mongoose.Schema({
@@ -12,4 +12,4 @@ const Contact = mongoose.model("Contact", contactSchema);
 // mongoose.model("Contact", contactSchema) membuat model bernama "Contact", 
 // yang akan otomatis dikaitkan dengan koleksi "Contacts" di MongoDB(Mongoose otomatis mengubahnya menjadi bentuk jamak).
 
-module.exports = Contact;
+export default Contact;

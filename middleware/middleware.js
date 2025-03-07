@@ -1,12 +1,12 @@
-const express = require('express');
-const methodOverride = require('method-override');
-const expressLayouts = require('express-ejs-layouts');
-const cors = require('cors');
-const { body, validationResult, check } = require('express-validator');
-const Contact = require('../models/contactsModel');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
+import express from 'express';
+import expressLayouts from 'express-ejs-layouts';
+import cors from 'cors';
+import { body, validationResult, check } from 'express-validator';
+import Contact from '../models/contactsModel.js';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import flash from 'connect-flash';
+import methodOverride from 'method-override';
 
 
 const Middleware = (app) => {
@@ -92,4 +92,4 @@ const validateUpdate = [
     }
 ];
 
-module.exports = { Middleware, validateContact, validateUpdate };
+export default { Middleware, validateContact, validateUpdate };

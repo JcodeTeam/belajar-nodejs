@@ -1,6 +1,6 @@
-const express = require("express");
-const contactController = require("../controllers/contactController");
-const Middleware = require("../middleware/middleware");
+import express from 'express';
+import contactController from '../controllers/contactController.js';
+import Middleware from '../middleware/middleware.js';
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.get("/:id", contactController.show);
 
 router.delete("/:id", contactController.destroy);
 
-module.exports = router;
+export default router;
