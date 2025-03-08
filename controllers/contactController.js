@@ -6,7 +6,6 @@ export const index = async (req, res) => {
         res.render("contact", {
             layout: 'layouts/app.ejs', title: 'Daftar Kontak', msg: req.flash('msg'), contact 
         }); // Render tampilan EJS
-        // res.status(200).json(products); // Jika Menggunakan API
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
     }
@@ -23,7 +22,6 @@ export const store = async (req, res) => {
 
         req.flash('msg', 'Kontak berhasil ditambahkan!');
         res.redirect("/contact");
-        // res.status(201).json({message: "Produk berhasil ditambahkan"}); 
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
     }
@@ -66,7 +64,6 @@ export const update = async (req, res) => {
 
         req.flash('msg', 'Kontak berhasil diubah!');
         res.redirect("/contact");
-        // res.status(201).json({ message: "Produk berhasil diperbaharui" }); 
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
     }
@@ -84,12 +81,7 @@ export const destroy = async (req, res) => {
 
         req.flash('msg', 'Kontak berhasil Hapus!');
         res.redirect("/contact");
-        // res.status(201).json({ message: "Produk berhasil dihapus" }); 
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
     }
 };
-
-
-export default { index, create, store, show, edit, update, destroy };
-// Export semua fungsi yang ada di dalam controller agar bisa digunakan di file lain

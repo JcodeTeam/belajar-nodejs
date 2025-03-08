@@ -1,4 +1,4 @@
-import aj from "../config/arject.js";
+import aj from "../config/arcjet.js";
 
 const arjectMiddleware = async (req, res, next) => {
     try {

@@ -1,10 +1,5 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config();
-
-const DATABASE_NAME = process.env.DATABASE_NAME;
-const MONGO_URI = process.env.MONGO_URI;
-
+import { MONGO_URI, DATABASE_NAME } from "./env.js";
 
 async function connectDB() {
     try {

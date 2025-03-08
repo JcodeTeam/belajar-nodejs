@@ -1,10 +1,9 @@
-import Contact from "../models/contactsModel.js";
+import Contact from "../../models/contactsModel.js";
 
 export const index = async (req, res) => {
     try {
         const contact = await Contact.find();
-        
-        res.status(200).json(products); // Jika Menggunakan API
+        res.status(200).json(contact); // Jika Menggunakan API
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
     }
@@ -15,6 +14,7 @@ export const store = async (req, res) => {
         const { nama, email, noHP } = req.body;
         await Contact.create({ nama, email, noHP });
 
+        req.flash('msg', 'Kontak berhasil ditambahkan!');
         res.status(201).json({message: "Produk berhasil ditambahkan"}); 
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
@@ -29,7 +29,8 @@ export const show = async (req, res) => {
         if (!contact)
             return res.status(404).json({ error: "contact tidak ditemukan" });
 
-        res.status(200).json(contact);
+        res.status(200).json(contact); // Jika Menggunakan API
+
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
     }
@@ -42,6 +43,7 @@ export const update = async (req, res) => {
 
         await Contact.findByIdAndUpdate(id, { nama, email, noHP }, { new: true });
 
+        req.flash('msg', 'Kontak berhasil diubah!');
         res.status(201).json({ message: "Produk berhasil diperbaharui" }); 
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
@@ -58,13 +60,9 @@ export const destroy = async (req, res) => {
             return res.status(404).json({ error: "Produk tidak ditemukan" });
         }
 
-        
+        req.flash('msg', 'Kontak berhasil Hapus!');
         res.status(201).json({ message: "Produk berhasil dihapus" }); 
     } catch (err) {
         res.status(500).json({ error: "Terjadi kesalahan", details: err });
     }
 };
-
-
-export default { index, store, show, update, destroy };
-// Export semua fungsi yang ada di dalam controller agar bisa digunakan di file lain
