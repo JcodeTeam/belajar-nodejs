@@ -73,10 +73,10 @@ export const destroy = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const produk = await Contact.findByIdAndDelete(id);
+        const contact = await Contact.findByIdAndDelete(id);
 
-        if (!produk) {
-            return res.status(404).json({ error: "Produk tidak ditemukan" });
+        if (!contact) {
+            return res.status(404).json({ error: "contact tidak ditemukan" });
         }
 
         req.flash('msg', 'Kontak berhasil Hapus!');
