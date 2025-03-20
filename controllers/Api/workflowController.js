@@ -1,8 +1,8 @@
-import { serve } from '@upstash/workflow/express'; 
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
+const { serve } = require('@upstash/workflow/express');
 import dayjs from 'dayjs';
-import Subscription from '../../models/subscriptionModel.js';
+import Subscription from '../../models/subriptionModel.js';
 
 const REMINDERS = [7, 5, 3, 1];
 
@@ -15,7 +15,7 @@ export const sendReminders = serve(async (context) => {
     const renewalDate = dayjs(subscription.renewalDate);    
 
     if(renewalDate.isBefore(dayjs())) {
-        console.log(`renewal date has passed for subscription ${subscriptionId}`);
+        console.log(`renewal date has passed for subscription ${subscriptionId}. Stopping workflow.`);
         return;
     }
 
