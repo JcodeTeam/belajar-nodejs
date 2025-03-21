@@ -1,9 +1,9 @@
 import express from 'express';
-import { getSubscriptions, createSubscription, getUserSubscription} from '../controllers/Api/subscriptionController.js';
+import { getSubscriptions, createSubscription, getUserSubscription, deleteSubscription} from '../controllers/Api/subscriptionController.js';
 import authorize from '../middleware/authMiddleware.js';
 const router = express.Router();
 
-router.get("/", getSubscriptions);
+router.get("/", authorize, getSubscriptions);
 
 router.post("/", authorize, createSubscription);
 
@@ -11,7 +11,7 @@ router.put("/:id",  );
 
 router.get("/:id", );
 
-router.delete("/:id", );
+router.delete("/:id", deleteSubscription);
 
 // User Subscription
 

@@ -15,13 +15,28 @@ export const getSubscriptions = async (req, res, next) => {
 
 export const createSubscription = async (req, res, next) => {
     try {
-        const subcription = await Subscription.create({...req.body, user: req.user._id});
+        const subcription = await Subscription.create({
+            ...req.body, 
+            user: req.user._id,
+        });
 
-        await workflowClient.trigger({
-            url: `${SERVER_URL}/api/subs/${subcription._id}`,
-        })
+        // await workflowClient.trigger({
+        //     url: `${SERVER_URL}/api/subs/${subcription._id}`,
+        // })
 
-        res.status(201).json({ success: true, data: subcription });
+        const { workflowRunId } = await workflowClient.trigger({
+            url: `${SERVER_URL}/api/workflows/subs/reminder`,
+            body: {
+                subscriptionId: subcription.id,
+            },
+            headers: {
+                'content-type': 'application/json',
+            },
+            retries: 0,
+        });
+
+
+        res.status(201).json({ success: true, data: { subcription, workflowRunId } });
 
     } catch (err) {
         next(err);
@@ -42,3 +57,19 @@ export const getUserSubscription = async (req, res, next) => {
         next(err);
     }
 }
+
+export const deleteSubscription = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const subs = await Subscription.findByIdAndDelete(id);
+
+        if (!subs) {
+            return res.status(404).json({ error: "Subscription tidak ditemukan" });
+        }
+
+        res.status(201).json({ message: "Subscription berhasil dihapus", data: { subs } });
+    } catch (err) {
+        res.status(500).json({ error: "Terjadi kesalahan", details: err });
+    }
+};

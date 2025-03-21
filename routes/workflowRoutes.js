@@ -4,6 +4,6 @@ import { sendReminders } from "../controllers/Api/workflowController.js";
 const router = express.Router();
 
 
-router.post("/reminder", sendReminders);
+router.post("/subs/reminder", sendReminders);
 
 export default router;

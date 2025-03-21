@@ -78,8 +78,7 @@ subscriptionSchema.pre("save", function (next) {
         this.renewalDate.setDate(this.renewalDate.getDate() + renewalPeriod[this.frequency]);
     }
 
-    // auto set status to expired if renewal date is greater than today
-    if(this.renewalDate > new Date()){
+    if(this.renewalDate < new Date()){
         this.status = "expired";
     }
     next();
