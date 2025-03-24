@@ -7,7 +7,10 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
 import methodOverride from 'method-override';
+import { RedisStore } from 'connect-redis';
+import redisClient from '../config/redis.js';
 
+redisClient.connect().catch(console.error);
 
 const Middleware = (app) => {
     app.use(express.json());
@@ -18,12 +21,23 @@ const Middleware = (app) => {
     app.use(methodOverride('_method'));
     app.use(cors());
     app.use(cookieParser('secret'));
+    // app.use(
+    //     session({
+    //         cookie: { maxAge: 6000 },
+    //         secret: 'secret',
+    //         resave: true,
+    //         saveUninitialized: true,
+    //     })
+    // );
     app.use(
         session({
-            cookie: { maxAge: 6000 },
-            secret: 'secret',
-            resave: true,
-            saveUninitialized: true,
+            store: new RedisStore ({ client: redisClient }),
+            secret: 'supersecretkey',
+            resave: false,
+            saveUninitialized: false,
+            cookie: { secure: false, 
+                maxAge: 6000,
+            }
         })
     );
     app.use(flash());
