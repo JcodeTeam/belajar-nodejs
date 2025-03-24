@@ -28,7 +28,7 @@ export const signup = async (req, res, next) => {
         await session.commitTransaction();
         session.endSession();
 
-        res.status(201).json({ succes: true, message: "User berhasil ditambahkan",data: { user: newUser[0], token } });
+        res.status(201).json({ success: true, message: "User berhasil ditambahkan",data: { user: newUser[0], token } });
 
     } catch (err) {
         await session.abortTransaction();
@@ -59,7 +59,7 @@ export const signin = async (req, res, next) => {
         const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
         res.status(200).json({ 
-            succes: true, 
+            success: true, 
             message: "User berhasil login", 
             data: { user, token} 
         });

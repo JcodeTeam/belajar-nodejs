@@ -5,17 +5,21 @@ const router = express.Router();
 
 router.get("/", authorize, getSubscriptions);
 
+router.get("/:id", );
+
 router.post("/", authorize, createSubscription);
 
 router.put("/:id",  );
 
-router.get("/:id", );
-
-router.delete("/:id", deleteSubscription);
+router.delete("/:id", authorize, deleteSubscription);
 
 // User Subscription
 
 router.get("/user/:id", authorize, getUserSubscription);
+
+router.put('/:id/cancel', (req, res) => res.send({ title: 'CANCEL subscription' }));
+
+router.get('/upcoming-renewals', (req, res) => res.send({ title: 'GET upcoming renewals' }));
 
 export default router;
  
