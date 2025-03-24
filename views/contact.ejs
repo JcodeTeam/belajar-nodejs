@@ -10,56 +10,47 @@
                     <%= msg %>
                 </div>
                 <% } %>
-
-                    <table class="table">
-                        <thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Email</th>
+                    <th scope="col" class="text-center">Aksi</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <% if (contact.length===0) { %>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <div class="alert alert-danger" role="alert">
+                                Data Contact belum ada
+                            </div>
+                        </td>
+                    </tr>
+                    <% } else { %>
+                        <% contact.forEach(con=> { %>
                             <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">No Telp</th>
-                                <th scope="col">Aksi</th>
+                                <td>
+                                    <%= con.nama %>
+                                </td>
+                                <td>
+                                    <%= con.email %>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/contact/<%= con._id %>" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i> Detail
+                                    </a>
+                                    <a href="/contact/edit/<%= con._id %>" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <% if (contact.length===0) { %>
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="alert alert-danger" role="alert">
-                                            Data Contact belum ada
-                                        </div>
-                                    </td>
-                                </tr>
+                            <% }) %>
                                 <% } %>
-                                    <% contact.forEach(con=> { %>
-                                        <tr>
-                                            <td>
-                                                <%= con.nama %>
-                                            </td>
+            </tbody>
 
-                                            <td>
-                                                <%= con.email%>
-                                            </td>
+        </table>
 
-                                            <td>
-                                                <%= con.noHP %>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="/contact/<%= con._id %>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
-                                                <a href="/contact/edit/<%= con._id %>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>
-                                                    Edit</a>
-                                            
-                                                <form action="/contact/<%= con._id %>?_method=DELETE" method="POST" class="d-inline">
-                                                    <button type="submit" class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Yakin ingin menghapus contact ini?')">
-                                                        <i class="fas fa-trash-alt"></i> Hapus
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            </tr>
-                                        </tr>
-                                        <% }) %>
-                        </tbody>
-                    </table>
         </div>
     </div>
 </div>

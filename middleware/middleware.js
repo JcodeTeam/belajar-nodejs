@@ -21,14 +21,6 @@ const Middleware = (app) => {
     app.use(methodOverride('_method'));
     app.use(cors());
     app.use(cookieParser('secret'));
-    // app.use(
-    //     session({
-    //         cookie: { maxAge: 6000 },
-    //         secret: 'secret',
-    //         resave: true,
-    //         saveUninitialized: true,
-    //     })
-    // );
     app.use(
         session({
             store: new RedisStore ({ client: redisClient }),
