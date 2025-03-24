@@ -12,9 +12,10 @@
                       <h5 class="card-title"><%= contact.nama %></h5>
                       <h6 class="card-subtitle mb-2 text-body-secondary"><%= contact.nohp %></h6>
                       <p class="card-text"><%= contact.email %></p>
-                      <a href="/contact/edit/<%= contact._id %>" class="btn btn-success btn-sm">Edit</a>
+                      <a href="/contact/edit/<%= contact._id %>" class="btn btn-success btn-sm"><i class="fas fa-edit"></i> Edit</a>
                     <form action="/contact/<%= contact._id %>?_method=DELETE" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus contact ini?')">
+                        <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Yakin ingin menghapus contact ini?')">
                             <i class="fas fa-trash-alt"></i> Hapus
                         </button>
                     </form>
