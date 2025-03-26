@@ -56,11 +56,12 @@ export const getUserSubscription = async (req, res, next) => {
 
 export const cancelSubscription = async (req, res) => {
     try {
+        const { id } = req.params;
         const userId = req.user.id;
 
         // Cari subscription aktif berdasarkan user
         const subscription = await Subscription.findOneAndUpdate(
-            { user: userId, status: "active" },
+            { _id: id, user: userId, status: "active" },
             { status: "cancelled", renewalDate: null }, // Set status jadi cancelled dan hapus renewalDate
             { new: true } // Return data yang sudah diperbarui
         );
