@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
         required: [true, "password is requaired"], 
         minLength: 3, 
     },
+    resetToken: { type: String },
+    resetTokenExpires: { type: Date },
 }, { timestamps: true } );
 
 // Buat model berdasarkan schema
