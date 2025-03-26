@@ -11,9 +11,7 @@ const authorize = async (req, res, next) => {
         }
 
         if (!token) {
-            const error = new Error("Not authorized to access this route");
-            error.statusCode = 401;
-            throw error;
+            return res.status(401).json({ success: false, message: "Not authorized to access this route" });
         }
 
         const decoded = jwt.verify(token, JWT_SECRET);
@@ -21,9 +19,7 @@ const authorize = async (req, res, next) => {
         const user = await User.findById(decoded.userId);
 
         if (!user) {
-            const error = new Error("User tidak ditemukan");
-            error.statusCode = 404;
-            throw error;
+            return res.status(404).json({ success: false, message: "User tidak ditemukan" });
         }
 
         req.user = user;

@@ -82,3 +82,31 @@ export const emailTemplates = [
         generateBody: (data) => generateEmailTemplate({ ...data, daysLeft: 1 }),
     },
 ];
+
+export const resetPasswordTemplate = {
+    resetPassword: ({ name, resetLink }) => ({
+        subject: "Reset Password Request",
+        body: `
+            <p>Halo, ${name}</p>
+            <p>Kami menerima permintaan untuk mereset password akun Anda.</p>
+            <p>Klik link berikut untuk mereset password Anda:</p>
+            <a href="${resetLink}" target="_blank" style="display: inline-block; padding: 10px 15px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">Reset Password</a>
+            <p>Jika Anda tidak meminta reset password, abaikan email ini.</p>
+            <p>Link ini berlaku selama 1 jam.</p>
+        `,
+    }),
+
+    resetPasswordSuccess: ({ name }) => ({
+        subject: "Password Successfully Changed",
+        body: `
+            <p>Halo, ${name},</p>
+            <p>Password akun Anda telah berhasil diubah.</p>
+            <p>Jika ini bukan Anda, segera hubungi tim dukungan kami.</p>
+            <p>Terima kasih,</p>
+            <p>Tim Support</p>
+        `,
+    }),
+    
+};
+
+

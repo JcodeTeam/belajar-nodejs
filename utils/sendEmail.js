@@ -1,7 +1,9 @@
-import { emailTemplates } from './emailTemplate.js'
-import dayjs from 'dayjs'
-import { EMAIL } from '../config/env.js'
-import transporter from '../config/nodemailer.js'
+import { emailTemplates, resetPasswordTemplate } from './emailTemplate.js';
+import dayjs from 'dayjs';
+import { EMAIL, SERVER_URL, JWT_SECRET } from '../config/env.js';
+import transporter from '../config/nodemailer.js';
+import User from '../models/userModel.js';
+import jwt from 'jsonwebtoken';
 
 export const sendReminderEmail = async ({ to, type, subscription }) => {
     if (!to || !type) throw new Error('Missing required parameters');
@@ -41,4 +43,47 @@ export const sendReminderEmail = async ({ to, type, subscription }) => {
 
         console.log('Email sent: ' + info.response);
     })
-}
+};
+
+export const sendResetPasswordEmail = async ({ name, email, userId, isSuccess = false }) => {
+    try {
+        
+        let token;
+
+        if (!isSuccess) {
+            // Cek apakah user sudah memiliki token yang masih berlaku
+            const user = await User.findById(userId);
+            if (user && user.resetPasswordToken) {
+                token = user.resetPasswordToken; // Gunakan token lama jika masih ada
+            } else {
+                // Buat token baru jika belum ada
+                token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' });
+                await User.findByIdAndUpdate(userId, { resetPasswordToken: token });
+            }
+        }
+
+        // Buat link reset password
+        const resetLink = isSuccess ? null : `${SERVER_URL}/api/auth/reset-password/${token}`;
+
+        // Ambil template email
+        const template = isSuccess
+            ? resetPasswordTemplate.resetPasswordSuccess({ name })
+            : resetPasswordTemplate.resetPassword({ name, resetLink });
+
+        const mailOptions = {
+            from: EMAIL,
+            to: email,
+            subject: template.subject,
+            html: template.body,
+        };
+
+        // Kirim email
+        await transporter.sendMail(mailOptions);
+        console.log(`✅ ${isSuccess ? "Reset password success" : "Reset password request"} email sent to ${email}`);
+
+
+    } catch (error) {
+        console.error(`❌ Error sending reset password email: ${error.message}`);
+    }
+};
+
