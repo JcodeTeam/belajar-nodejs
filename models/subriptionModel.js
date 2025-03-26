@@ -17,11 +17,12 @@ const subscriptionSchema = new mongoose.Schema({
     currency: {
         type: String,
         enum: ["IDR", "USD", "EUR"],
-        default: "IDR"
+        default: "IDR",
     },
     frequency: {
         type: String,
-        enum: ["daily", "weekly", "monthly", "yearly"],
+        enum: ["monthly", "yearly"],
+        default: "monthly",
     },
     category: {
         type: String,
