@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import connectDB from './config/db.js';
 import contactRoutes from './routes/contactRoutes.js';
@@ -12,13 +11,9 @@ import subsriptionRoutes from './routes/subscriptionRoutes.js';
 import workflowRoutes from './routes/workflowRoutes.js';
 import { PORT } from './config/env.js';
 
-dotenv.config();
-
-
 const app = express();
 const port = PORT || 5000;
 
-connectDB();
 
 // Middleware
 Middleware.Middleware(app);
@@ -39,6 +34,7 @@ app.get("/", (req, res) => {
 });
 
 // Jalankan server
-app.listen(port, () => {
+app.listen(port, async () => {
+    await connectDB();
     console.log(`🚀 Server berjalan di http://localhost:${port}`);
 });
