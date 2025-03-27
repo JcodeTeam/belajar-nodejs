@@ -10,7 +10,15 @@ import methodOverride from 'method-override';
 import { RedisStore } from 'connect-redis';
 import redisClient from '../config/redis.js';
 
-redisClient.connect().catch(console.error);
+
+(async () => {
+    try {
+        await redisClient.connect();
+        console.log("✅ Redis Connected!");
+    } catch (err) {
+        console.error("❌ Connection Redis Failed:", err);
+    }
+})();
 
 const Middleware = (app) => {
     app.use(express.json());
@@ -27,8 +35,10 @@ const Middleware = (app) => {
             secret: 'supersecretkey',
             resave: false,
             saveUninitialized: false,
-            cookie: { secure: false, 
-                maxAge: 6000,
+            cookie: { 
+                secure: false, // set true jika https
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24,
             }
         })
     );

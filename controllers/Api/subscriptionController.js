@@ -2,17 +2,6 @@ import { workflowClient } from "../../config/upstash.js";
 import Subscription from "../../models/subriptionModel.js";
 import {SERVER_URL} from "../../config/env.js";
 
-export const getSubscriptions = async (req, res, next) => {
-    try {
-        const subscriptions = await Subscription.find();
-
-        res.status(200).json(subscriptions);
-
-    } catch (err) {
-        next(err);
-    }
-}
-
 export const createSubscription = async (req, res, next) => {
     try {
         const subcription = await Subscription.create({
@@ -41,11 +30,9 @@ export const createSubscription = async (req, res, next) => {
 
 export const getUserSubscription = async (req, res, next) => {
     try {
-        if (req.user.id !== req.params.id) {
-            return res.status(401).json({ error: "Not Your Auth" });
-        }
+        const userId = req.user.id;
 
-        const subscription = await Subscription.find({ user: req.params.id });
+        const subscription = await Subscription.find({ user: userId });
 
         res.status(200).json({ success: true, data: subscription });
 
@@ -71,6 +58,28 @@ export const cancelSubscription = async (req, res) => {
         }
 
         res.status(200).json({ success: true, message: "Subscription berhasil dibatalkan", data: subscription });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Terjadi kesalahan", details: error.message });
+    }
+};
+
+export const upcomingRenewals = async (req, res) => {
+    try {
+        const userId = req.user.id; // Ambil user dari token autentikasi
+        const upcomingSubscriptions = await Subscription.find({
+            user: userId,
+            renewalDate: {
+                $gte: new Date(),
+                $lte: new Date(new Date().setDate(new Date().getDate() + 7)) // 7 hari ke depan
+            },
+            status: "active"
+        });
+
+        if(!upcomingSubscriptions.length){
+            return res.status(200).json({ success: true, "message": "Tidak ada subscription yang akan diperpanjang dalam waktu dekat."});
+        }
+
+        res.status(200).json({ success: true, message: "Daftar Subs yang akan diperpanjang dalam waktu dekat.", data: upcomingSubscriptions });
     } catch (error) {
         res.status(500).json({ success: false, message: "Terjadi kesalahan", details: error.message });
     }

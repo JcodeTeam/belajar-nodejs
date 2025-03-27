@@ -1,9 +1,7 @@
 import express from 'express';
-import { getSubscriptions, createSubscription, getUserSubscription, cancelSubscription } from '../controllers/Api/subscriptionController.js';
+import { createSubscription, getUserSubscription, cancelSubscription, upcomingRenewals } from '../controllers/Api/subscriptionController.js';
 import authorize from '../middleware/authMiddleware.js';
 const router = express.Router();
-
-router.get("/", getSubscriptions);
 
 // User Subscription
 
@@ -11,9 +9,9 @@ router.post("/", authorize, createSubscription);
 
 router.put("/:id/cancel", authorize, cancelSubscription);
 
-router.get("/user/:id", authorize, getUserSubscription);
+router.get("/user", authorize, getUserSubscription);
 
-router.get('/upcoming-renewals', (req, res) => res.send({ title: 'GET upcoming renewals' }));
+router.get('/upcoming-renewals', authorize, upcomingRenewals);
 
 export default router;
  

@@ -106,7 +106,48 @@ export const resetPasswordTemplate = {
             <p>Tim Support</p>
         `,
     }),
-    
+
 };
+
+export const otpEmailTemplate = ({ otp, verifyLink }) => {
+    return {
+        subject: "Kode OTP Verifikasi Akun",
+        text: `Kode OTP Anda adalah: ${otp}\nJangan berikan kode ini kepada siapa pun.`,
+        html: `
+        <p>Klik link berikut untuk memverifikasi akun Anda:</p>
+        <a href="${verifyLink}" target="_blank" style="display: inline-block; padding: 10px 15px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">Reset Password</a>
+        <p>Kode OTP Anda adalah: <strong>${otp}</strong></p><p>Jangan berikan kode ini kepada siapa pun.</p>`
+    };
+};
+
+export const welcomeEmailTemplate = ({ name }) => {
+    return {
+        subject: "SELAMAT DATANG",
+        body: `<div style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8f9fa;">
+    <table width="100%" cellspacing="0" cellpadding="0" style="background-color: #ffffff; max-width: 600px; margin: auto; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
+
+        <!-- Animated Banner -->
+        <tr>
+            <td style="text-align: center;">
+                <img src="https://media1.tenor.com/m/plCfeoo1bg4AAAAd/marsha-jkt48-marsha.gif" alt="Welcome Banner" style="width: 100%; border-radius: 10px;">
+            </td>
+        </tr>
+
+        <!-- Welcome Message -->
+        <tr>
+            <td style="padding: 30px; text-align: center;">
+                <h2 style="color: #333;">Welcome, <span style="color: #007bff;">${name}</span>!</h2>
+                <p style="font-size: 16px; color: #555;">We are excited to have you on board. Get ready to explore all the amazing features!</p>
+                <p style="font-size: 14px; color: #555;">If you have any questions or need help, feel free to reach out!</p>
+            </td>
+        </tr>
+
+    </table>
+</div>
+`
+    };
+};
+
+
 
 

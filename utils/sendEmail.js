@@ -1,4 +1,4 @@
-import { emailTemplates, resetPasswordTemplate } from './emailTemplate.js';
+import { emailTemplates, resetPasswordTemplate, otpEmailTemplate, welcomeEmailTemplate } from './emailTemplate.js';
 import dayjs from 'dayjs';
 import { EMAIL } from '../config/env.js';
 import transporter from '../config/nodemailer.js';
@@ -68,3 +68,37 @@ export const sendResetPasswordEmail = async ({ name, email, resetLink, isSuccess
     }
 };
 
+export const sendOTPEmail = async (email, otp, verifyLink) => {
+    const { subject, text, html } = otpEmailTemplate({ otp, verifyLink });
+
+    const mailOptions = {
+        from: EMAIL,
+        to: email,
+        subject,
+        text,
+        html
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
+export const sendWelcomeEmail = async (email, name) => {
+    try {
+
+        const { subject, body } = welcomeEmailTemplate({ name });
+
+        const mailOptions = {
+            from: EMAIL,
+            to: email,
+            subject,
+            html: body
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        console.log(`✅ Welcome email sent to ${email}`);
+
+    } catch (error) {
+        console.error(`❌ Error sending welcome email to ${email}: ${error.message}`);
+    }
+};
