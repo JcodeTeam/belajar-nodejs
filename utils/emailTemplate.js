@@ -109,13 +109,12 @@ export const resetPasswordTemplate = {
 
 };
 
-export const otpEmailTemplate = ({ otp, verifyLink }) => {
+export const otpEmailTemplate = ({ otp }) => {
     return {
         subject: "Kode OTP Verifikasi Akun",
         text: `Kode OTP Anda adalah: ${otp}\nJangan berikan kode ini kepada siapa pun.`,
         html: `
         <p>Klik link berikut untuk memverifikasi akun Anda:</p>
-        <a href="${verifyLink}" target="_blank" style="display: inline-block; padding: 10px 15px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">Reset Password</a>
         <p>Kode OTP Anda adalah: <strong>${otp}</strong></p><p>Jangan berikan kode ini kepada siapa pun.</p>`
     };
 };

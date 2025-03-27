@@ -68,8 +68,8 @@ export const sendResetPasswordEmail = async ({ name, email, resetLink, isSuccess
     }
 };
 
-export const sendOTPEmail = async (email, otp, verifyLink) => {
-    const { subject, text, html } = otpEmailTemplate({ otp, verifyLink });
+export const sendOTPEmail = async (email, otp) => {
+    const { subject, text, html } = otpEmailTemplate({ otp });
 
     const mailOptions = {
         from: EMAIL,

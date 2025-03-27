@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import otpGenerator from 'otp-generator';
 import User from "../models/userModel.js";
-import { JWT_SECRET, JWT_EXPIRES_IN, SERVER_URL } from "../config/env.js";
+import { JWT_SECRET, JWT_EXPIRES_IN, SERVER_URL, FRONTEND_URL } from "../config/env.js";
 import { sendResetPasswordEmail, sendOTPEmail, sendWelcomeEmail } from "../utils/sendEmail.js"
 
 
@@ -32,9 +32,7 @@ export const signup = async (req, res, next) => {
             existingUser.otpExpires = new Date(Date.now() + 10 * 60000); // OTP berlaku 10 menit
             await existingUser.save();
 
-            const verifyLink = `${SERVER_URL}/api/auth/verify-otp`;
-
-            await sendOTPEmail(email, otp, verifyLink);
+            await sendOTPEmail(email, otp);
 
             return res.status(200).json({ success: true, message: "Kode OTP telah dikirim ulang ke email Anda. Silakan verifikasi." });
         }
@@ -56,9 +54,7 @@ export const signup = async (req, res, next) => {
             { session }
         );
 
-        const verifyLink = `${SERVER_URL}/api/auth/verify-otp`;
-
-        await sendOTPEmail(email, otp, verifyLink);
+        await sendOTPEmail(email, otp);
 
  
         await session.commitTransaction();
