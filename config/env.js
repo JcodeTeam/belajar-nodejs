@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 
-config({ path: `.env.${ process.env.NODE_ENV || 'development' }.local` });
+config({ path: `.env.${ process.env.NODE_ENV || 'production' }.local` });
 export const { 
     SERVER_URL, FRONTEND_URL, PORT, NODE_ENV, MONGO_URI, DATABASE_NAME,
     ARCJET_KEY, ARCJET_ENV,

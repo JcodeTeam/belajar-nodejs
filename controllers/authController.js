@@ -118,7 +118,7 @@ export const forgotPassword = async (req, res, next) => {
         const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
 
         // Buat link reset password
-        const resetLink =`${SERVER_URL}/api/auth/reset-password/${token}`;
+        const resetLink =`${FRONTEND_URL}/resetpassword/${token}`;
 
         // Simpan token di database
         await User.findByIdAndUpdate(user._id, { resetPasswordToken: token, resetTokenExpires: Date.now() + 3600000, });

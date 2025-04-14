@@ -67,14 +67,15 @@ const subscriptionSchema = new mongoose.Schema({
 
 // auto calculate renewal date
 subscriptionSchema.pre("save", function (next) {
-    const renewalPeriod = { 
-        daily: 1,
-        weekly: 7,
-        monthly: 30,
-        yearly: 365
-    };
-
+    
     if(!this.renewalDate){
+        const renewalPeriod = { 
+            daily: 1,
+            weekly: 7,
+            monthly: 30,
+            yearly: 365
+        }
+
         this.renewalDate = new Date(this.startDate);
         this.renewalDate.setDate(this.renewalDate.getDate() + renewalPeriod[this.frequency]);
     }

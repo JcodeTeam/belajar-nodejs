@@ -26,7 +26,7 @@ const contactSchema = new mongoose.Schema({
 
 // Buat model berdasarkan schema
 const Contact = mongoose.model("Contact", contactSchema);
-// mongoose.model("Contact", contactSchema) membuat model bernama "Contact", 
+// mongoose.model("Contact", contactSchema) membuat model bernama "Contact", s
 // yang akan otomatis dikaitkan dengan koleksi "Contacts" di MongoDB(Mongoose otomatis mengubahnya menjadi bentuk jamak).
 
 export default Contact;
