@@ -18,7 +18,7 @@ import redisClient from '../config/redis.js';
     } catch (err) {
         console.error("❌ Connection Redis Failed:", err);
     }
-})();
+})();   
 
 const Middleware = (app) => {
     app.use(express.json());
