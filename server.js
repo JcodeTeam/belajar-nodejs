@@ -18,7 +18,7 @@ const port = PORT || 5000;
 // Middleware
 Middleware.Middleware(app);
 app.use(errorMiddleware);
-app.use(arcjetMiddleware);
+// app.use(arcjetMiddleware);
 
 
 //route
